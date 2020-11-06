@@ -23,9 +23,11 @@ print(iris.groupby('species').size())
 
 # visualization
 sb.pairplot(iris, hue='species')
-plt.show()
+# plt.show()
+
 iris.hist()
-plt.show()
+# plt.show()
+
 plt.figure()
 plt.subplot(2, 2, 1)
 sb.violinplot(x='species', y='sepal_length', data=iris)
@@ -35,8 +37,13 @@ plt.subplot(2, 2, 3)
 sb.violinplot(x='species', y='petal_length', data=iris)
 plt.subplot(2, 2, 4)
 sb.violinplot(x='species', y='petal_width', data=iris)
-plt.show()
+# plt.show()
+
 iris.boxplot(by='species')
-plt.show()
+# plt.show()
+
 pd.plotting.scatter_matrix(iris)
+# plt.show()
+
+sb.pairplot(iris, hue='species', diag_kind='kde')
 plt.show()
