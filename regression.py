@@ -55,8 +55,3 @@ print(model.predict(np.array([9]).reshape(1, -1)))
 
 sb.jointplot(x='RM', y='MEDV', data=df, kind='reg')
 plt.show()
-
-
-# edited by me
-
-
