@@ -7,9 +7,8 @@ import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 
 # to display full row of data
-
-
 pd.set_option("display.max_column", 14)
+
 header = ['CRIM', 'ZN', 'INDUS', 'CHAS', 'NOX', 'RM', 'AGE', 'DIS', 'RAD', 'TAX', 'PTRATIO', 'B', 'LSTAT', 'MEDV']
 df = pd.read_csv("data/housing.csv", header=None, delimiter=r"\s+", names=header)
 # print(df.head())
@@ -40,8 +39,8 @@ y = df['MEDV'].values
 model = LinearRegression()
 
 model.fit(X, y)
-print(model.coef_)
-print(model.intercept_)
+print("Coefficient:", model.coef_)
+print("Intercept:", model.intercept_)
 
 plt.figure()
 plt.suptitle("RM v/s MEDV plot")
@@ -51,7 +50,7 @@ plt.ylabel("median value of owner-occupied homes in \$1000s.")
 # plt.show()
 plt.close()
 
-print(model.predict(np.array([9]).reshape(1, -1)))
+print("Prediction:", model.predict(np.array([9]).reshape(1, -1)))
 
 sb.jointplot(x='RM', y='MEDV', data=df, kind='reg')
 plt.show()
