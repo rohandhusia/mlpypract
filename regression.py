@@ -4,7 +4,7 @@ import sklearn as sk
 from sklearn.datasets import load_boston
 import seaborn as sb
 import matplotlib.pyplot as plt
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression, RANSACRegressor
 
 # to display full row of data
 pd.set_option("display.max_column", 14)
@@ -39,18 +39,45 @@ y = df['MEDV'].values
 model = LinearRegression()
 
 model.fit(X, y)
-print("Coefficient:", model.coef_)
-print("Intercept:", model.intercept_)
+print("linear regression Coefficient:", model.coef_)
+print("linear regression Intercept:", model.intercept_)
 
-plt.figure()
-plt.suptitle("RM v/s MEDV plot")
-sb.regplot(x=X, y=y)
+# plt.figure()
+# plt.suptitle("RM v/s MEDV plot")
+# sb.regplot(x=X, y=y)
+# plt.xlabel("average number of rooms per dwelling.")
+# plt.ylabel("median value of owner-occupied homes in \$1000s.")
+# plt.show()
+# plt.close()
+
+# print("Prediction:", model.predict(np.array([9]).reshape(1, -1)))
+
+# sb.jointplot(x='RM', y='MEDV', data=df, kind='reg')
+# plt.show()
+# plt.close()
+
+# Robust Regression
+# RANSAC(RANdom SAmple Consensus Algorithm)
+ransac = RANSACRegressor()
+ransac.fit(X, y)
+
+# Find outliers(just for plotting)
+inlier = ransac.inlier_mask_
+outlier = np.logical_not(inlier)
+
+# prediction
+line_x = np.arange(3, 10, 1)  # use range of the actual data
+line_y = ransac.predict(line_x.reshape(-1, 1))
+
+# plotting
+sb.set(style='darkgrid', context='notebook')
+plt.scatter(X[inlier], y[inlier], c='blue', marker='o', label='inliers')
+plt.scatter(X[outlier], y[outlier], c='green', marker='s', label='outliers')
+plt.plot(line_x, line_y, color='red')
 plt.xlabel("average number of rooms per dwelling.")
 plt.ylabel("median value of owner-occupied homes in \$1000s.")
-# plt.show()
-plt.close()
-
-print("Prediction:", model.predict(np.array([9]).reshape(1, -1)))
-
-sb.jointplot(x='RM', y='MEDV', data=df, kind='reg')
+plt.legend(loc='upper left')
 plt.show()
+
+print("ransac coefficient: ", ransac.estimator_.coef_)
+print("ransac intercept: ", ransac.estimator_.intercept_)
