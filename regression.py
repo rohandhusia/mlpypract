@@ -1,9 +1,7 @@
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import sklearn as sk
-from sklearn.datasets import load_boston
 import seaborn as sb
-import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression, RANSACRegressor
 
 # to display full row of data
