@@ -1,4 +1,7 @@
 import pandas as pd
+import numpy as np
+import seaborn as sb
+import matplotlib.pyplot as plt
 from sklearn.datasets import load_boston
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
@@ -19,4 +22,21 @@ lr = model.fit()
 form_lr = smf.ols(formula='y ~ CRIM + ZN + INDUS + CHAS + NOX + RM + AGE + DIS + RAD + TAX + PTRATIO + B + LSTAT',
                   data=df)
 mlr = form_lr.fit()
-print(mlr.summary())
+# print(mlr.summary())
+
+# Finding Collinearity in the data
+
+pd.options.display.float_format = '{:,.4f}'.format
+corr_mat = df.corr()
+print(corr_mat)
+corr_mat[np.abs(corr_mat) < 0.6] = 0  # mask values less than 0.6 and greater than -0.6
+print(corr_mat)
+sb.heatmap(corr_mat, annot=True, cmap='YlGnBu')
+plt.show()
+plt.close()
+
+# using eigenvector
+eigenvalues, eigenvectors = np.linalg.eig(df.corr())
+print(pd.Series(eigenvalues).sort_values())
+print(np.abs(pd.Series(eigenvectors[:, 8])).sort_values(ascending=False))
+print(df.columns[9], df.columns[8], df.columns[2], )
