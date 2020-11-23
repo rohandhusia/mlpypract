@@ -1,12 +1,9 @@
-import numpy as np
-import pandas as pd
-import sklearn as sk
-from sklearn.datasets import load_boston
-import seaborn as sb
 import matplotlib.pyplot as plt
-from sklearn.linear_model import LinearRegression, RANSACRegressor
-from sklearn.model_selection import train_test_split
+import pandas as pd
+import seaborn as sb
+from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.model_selection import train_test_split
 
 pd.set_option("display.max_column", 14)
 
