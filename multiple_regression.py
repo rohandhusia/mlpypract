@@ -1,10 +1,10 @@
-import pandas as pd
-import numpy as np
-import seaborn as sb
 import matplotlib.pyplot as plt
-from sklearn.datasets import load_boston
+import numpy as np
+import pandas as pd
+import seaborn as sb
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
+from sklearn.datasets import load_boston
 
 pd.set_option("display.max_column", 14)
 boston_data = load_boston()
@@ -26,6 +26,7 @@ mlr = form_lr.fit()
 
 # Finding Collinearity in the data
 
+# using correlation matrix
 pd.options.display.float_format = '{:,.4f}'.format
 corr_mat = df.corr()
 print(corr_mat)
